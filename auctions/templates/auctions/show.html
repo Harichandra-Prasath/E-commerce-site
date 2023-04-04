@@ -1,0 +1,81 @@
+{% extends "auctions/layout.html"%}
+
+{% block body %}
+    <div >
+        <h1>{{item.Title}}</h1>
+        <img src={{item.Image}} width="250" height="250" alt={{listing.Title}}>
+    </div>
+    {%if item.is_active %}
+    <p>
+        {{item.Description}}
+    </p>    
+    <h4>Current Bid: ${{item.Current_price}}</h4>
+    <h4>Current Bidder: {{current_bidder}}</h4>
+    <h4>No of bids: {{item.bids.count}}</h4>
+    <p>
+    <h4>Owner Details</h4>
+    <div>Username - {{item.created_by.username}}</div> 
+    <div>Email    - {{item.created_by.email}}</div>
+    </p>
+    <div style="position: absolute;left:65%;top:20%">
+        <h3>Public comments</h3>
+        {% for Comment in item.comments.all %}
+        <ul>{{Comment.comment}}-{{Comment.commented_by.username}}</ul>
+        {%endfor%}
+    </div>
+    <div>
+        {%if user.is_authenticated %}
+            {%if user.username == item.created_by.username%}
+            <form action="{% url 'item' item.id%}" method="post">
+                {% csrf_token %}
+                Close this item:<button type="submit" name="Closebutton" class="btn btn-danger">Close</button>
+            </form>
+            {%else%}
+            <form action="{% url 'item' item.id%}" method="post">
+                {% csrf_token %}
+                Add Comment: <input type="textarea" name="comment">
+                <input style="color: black;" type="submit" name="commentsubmit" value="Add">
+                {% if user.username == current_bidder %}
+                    <strong style="position: relative;left:7px;">You have the highest bid now , you have a chance to own this item</strong> 
+                {% else %}
+                Place Bid: <input type="number" name="bid">
+                <input type="submit" name="bidsubmit" value="Add Bid">
+                {%endif%}
+                <div style="position: absolute;left:16.5%;top:44%;"> 
+                    {%if iswatchlist %}
+                    <button type="submit" name="watchlistbutton" class="btn btn-danger">Remove from watchlist</button>
+                    {%else%}
+                    <button type="submit" name="watchlistbutton" class="btn btn-success">Add to watchlist</button>
+                    {%endif%}
+                </div>
+             </form>  
+            {%endif%}
+        {%else%}
+             <h3>To see more details and to participate in bidding ,Please <a href="{%  url 'login' %}">Login</a> </h3>
+        {%endif%}
+        
+    </div>
+    {%if CSuccess %}
+    <div class="alert alert-success" role="alert">
+        Your comment is  submitted
+    </div>
+    {% endif %}
+    {%if Success %}
+    <div class="alert alert-success" role="alert">
+        Your bid is successfully placed and Your bid is the highest right now
+    </div>
+    {% elif Error %}
+    <div class="alert alert-danger" role="alert">
+        Bid is too low , Your bid should be greater than Current price i.e..{{item.Current_price}}
+    </div>
+    {%endif%}
+    {%else%}
+        <div style="position: relative;top:50px">
+            <h3>Bids for this item is closed</h3>
+            <h4>Winner - {{current_bidder}}</h4>
+            <h4>Price - ${{item.Current_price}} </h4>
+        </div>
+        
+    {%endif%}
+
+{% endblock %}

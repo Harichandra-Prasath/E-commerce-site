@@ -1,0 +1,21 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h1>Watchlist</h1> 
+
+<div class="row mx-3">
+{% for item in witems%}
+    {% if item.is_active %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src={{item.Image}} alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{item.Title}}</h5>
+          <p class="card-text">{{item.Description}}.</p>
+           Current Price : {{item.Current_price}}
+           <div style="position: relative;top: 2px;left:0px;"><a href="{% url 'item' item.id %}" class="btn btn-primary">Bid Now</a></div> 
+        </div>
+      </div>
+    {% endif %}  
+    {%endfor%}  
+ </div>
+{% endblock %}  

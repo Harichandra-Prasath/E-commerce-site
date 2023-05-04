@@ -10,4 +10,4 @@ Core Features:
  - Users can have seperate **Watchlist** Section 
  - If the owner wish to close the listing , The user with **Highest Bid** will win the auction
  - Users can make **Comments** on listing
- - Users can Surf Categorically by accessing selecting categories in **Categories Section**
+ - Users can Surf Categorically by accessing selecting desired category in **Categories Section**

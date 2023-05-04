@@ -1,8 +1,13 @@
 #Simple E-commerce Site
 
-This is a full stack  project  with little amount of Frontend and heavily focusing on back-end with clean Implementation
+This is a FUll-STACK Web application built using django With **Plain Frontend** and Clean **Implementation of Backend**
 
-*User can list a item for auction 
-*Other users can bid on that item and when the owner closes the listing , user with highest bid will win
-*Users can make comments on listing and add it to their watchlist
-*Categories are also implemented
+Core Features-
+     
+     - Users can **Register** their accounts and further use them to login and logout
+     - Registered Users can **List** their item **Categorically** for **bidding**
+     - Other Users can **Bid** on that item 
+     - Users can have seperate **Watchlist** Section 
+     - If the owner wish to close the listing , The user with **Highest Bid** will win the auction
+     - Users can make **Comments** on listing
+     - Users can Surf Categorically by accessing selecting categories in **Categories Section**
